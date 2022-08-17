@@ -1,0 +1,273 @@
+/* THEME-COLOR DEFINATION */
+$primary-color: #2C94FB;
+$accent-color: #FF661C;
+/* BACKGROUND-COLOR DEFINATION */
+$background: #E0E2E5;
+$dark-background: #4F5156;
+$light-background: #f4f4f4;
+/* TEXT-COLOR DEFINATION */
+$text-color: #3D4246;
+$light-text-color: #666666;
+$dark-text-color: #2C343F;
+/* FONT-FAMILY DEFINATION */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Open+Sans:wght@300;400;600&family=Rubik:wght@300;400;500&display=swap');
+@import "materialdesignicons.min.css";
+$heading-font: 'Montserrat', sans-serif;
+$text-font: 'Rubik', sans-serif;
+$title-font: 'Open Sans', sans-serif;
+
+@function generate-gradient($color) {
+    @return lighten(adjust-hue($color, 55%), 5%)
+}
+@mixin background-gradient($orientation, $startColor, $endColor) {
+    @if $orientation == "vertical" {
+        background: $startColor;
+        background: -moz-linear-gradient(top, $startColor 0%, $endColor 100%);
+        background: -webkit-linear-gradient(top, $startColor 0%, $endColor 100%);
+        background: linear-gradient(to bottom, $startColor 0%, $endColor 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=0 );
+    }
+    @else if $orientation == "horizontal" {
+        background: $startColor;
+        background: -moz-linear-gradient(left, $startColor 0%, $endColor 100%);
+        background: -webkit-linear-gradient(left, $startColor 0%,$endColor 100%);
+        background: linear-gradient(to right, $startColor 0%,$endColor 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=1 );
+    }
+    @else if $orientation == "diagonalUp" {
+        background: $startColor;
+        background: -moz-linear-gradient(45deg, $startColor 0%, $endColor 100%);
+        background: -webkit-linear-gradient(45deg, $startColor 0%,$endColor 100%);
+        background: linear-gradient(45deg, $startColor 0%,$endColor 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=1 );
+    }
+    @else if $orientation == "diagonalDown" {
+        background: $startColor;
+        background: -moz-linear-gradient(-45deg, $startColor 0%, $endColor 100%);
+        background: -webkit-linear-gradient(-45deg, $startColor 0%,$endColor 100%);
+        background: linear-gradient(135deg, $startColor 0%,$endColor 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=1 );
+    }
+    @else {
+        @warn "Orientation mixin supports: vertical, horizontal, diagonalUp, diagonalDown";
+    }
+}
+
+.ichat-bg{
+    &-primary{
+        background-color: $primary-color;
+    }
+    &-accent{
+        background-color: $accent-color;
+    }
+    &-success{
+        background-color: #1ed9bd;
+    }
+    &-info{
+        background-color: #00a7d4;
+    }
+    &-warning{
+        background-color: #eda515;
+    }
+    &-danger{
+        background-color: #ff2801;
+    }
+}
+
+.ichat-panel{
+    width: 350px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border-radius: 4px;
+    &-header{
+        padding: 5px 15px;
+        @include background-gradient("horizontal", generate-gradient($primary-color), $primary-color);
+    }
+    &-title{
+        font-family: $heading-font;
+        font-weight: 500;
+        font-size: 14px;
+        color: #fff;
+    }
+    &-body{
+        background-color: #fff;
+        height: 354px;
+        position: relative;
+    }
+}
+.ichat-list{
+    &-group{
+        height: 100%;
+        overflow-y: scroll;
+    }
+    &-item{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        &:hover,
+        &:focus{
+            background-color: #f4f4f4;
+        }
+    }
+}
+.ichat-user{
+    &-icon{
+        font-family: $heading-font;
+        font-size: 25px;
+        font-weight: 400;
+        color: #fff;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        text-align: center;
+        line-height: 50px;
+    }
+    &-details{
+        margin-left: 15px;
+    }
+    &-name{
+        margin: 0px;
+        font-family: $text-font;
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
+.ichat{
+    &-datetime{
+        margin: 0px;
+        font-family: $text-font;
+        font-size: 10px;
+        color: $light-text-color;
+    }
+    &-wrapper{
+        background-color: #fff;
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        &-show{
+            display: block;
+        }
+    }
+    &-online{
+        &::before{
+            content: "";
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 7px;
+            margin-right: 4px;
+            background-color: #63dc3f;
+            vertical-align: middle;
+        }
+    }
+    &-title{
+        font-family: $title-font;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 15px;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+        background-color: #fff;
+        color: $text-color;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        &-action{
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            color: $text-color;
+            &:hover,
+            &:focus{
+                color: $primary-color;
+            }
+        }
+    }
+    &-group{
+        display: inline-block;
+        width: 100%;
+        height: 248px;
+        margin-top: 40px;
+        overflow-y: scroll;
+    }
+    &-item{
+        border-top-right-radius: 18px;
+        border-top-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+        background-color: $background;
+        margin: 5px 15px;
+        float: left;
+        font-family: $text-font;
+        color: $dark-text-color;
+        font-weight: 400;
+        font-size: 12px;
+        width: auto;
+        max-width: 75%;
+        padding: 5px 15px;
+        clear: both;
+        .ichat-message{
+            margin: 10px 0px;
+        }
+        .ichat-datetime{
+            margin: 5px 0px;
+            text-align: left;
+        }
+        &-own{
+            border-top-right-radius: 18px;
+            border-top-left-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 0px;
+            @include background-gradient("horizontal", generate-gradient($primary-color), $primary-color);
+            color: #fff;
+            float: right;
+            .ichat-datetime{
+                color: #eee;
+                text-align: right;
+            }
+        }
+    }
+    &-form{
+        padding: 10px 15px;
+        border-top: 1px solid #eee;
+        position: relative;
+    }
+    &-input{
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: none;
+        padding: 6px;
+        padding-right: 50px;
+        box-sizing: border-box;
+        font-family: $text-font;
+        &:hover,
+        &:focus{
+            border-color: $primary-color;
+            outline: none;
+        }
+    }
+    &-btn{
+        position: absolute;
+        top: 14px;
+        right: 20px;
+        height: 35px;
+        width: 35px;
+        border-radius: 4px;
+        background-color: $primary-color;
+        color: #fff;
+        border: 1px solid darken($primary-color, 10%);
+        &:hover,
+        &:focus{
+            background-color: darken($primary-color, 5%);
+        }
+    }
+}

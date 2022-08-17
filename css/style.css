@@ -1,0 +1,203 @@
+/* THEME-COLOR DEFINATION */
+/* BACKGROUND-COLOR DEFINATION */
+/* TEXT-COLOR DEFINATION */
+/* FONT-FAMILY DEFINATION */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Open+Sans:wght@300;400;600&family=Rubik:wght@300;400;500&display=swap");
+@import url(materialdesignicons.min.css);
+.ichat-bg-primary {
+  background-color: #2C94FB; }
+
+.ichat-bg-accent {
+  background-color: #FF661C; }
+
+.ichat-bg-success {
+  background-color: #1ed9bd; }
+
+.ichat-bg-info {
+  background-color: #00a7d4; }
+
+.ichat-bg-warning {
+  background-color: #eda515; }
+
+.ichat-bg-danger {
+  background-color: #ff2801; }
+
+.ichat-panel {
+  width: 350px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border-radius: 4px; }
+  .ichat-panel-header {
+    padding: 5px 15px;
+    background: #9145fb;
+    background: -moz-linear-gradient(left, #9145fb 0%, #2C94FB 100%);
+    background: -webkit-linear-gradient(left, #9145fb 0%, #2C94FB 100%);
+    background: linear-gradient(to right, #9145fb 0%, #2C94FB 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=1 ); }
+  .ichat-panel-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff; }
+  .ichat-panel-body {
+    background-color: #fff;
+    height: 354px;
+    position: relative; }
+
+.ichat-list-group {
+  height: 100%;
+  overflow-y: scroll; }
+
+.ichat-list-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  cursor: pointer; }
+  .ichat-list-item:hover, .ichat-list-item:focus {
+    background-color: #f4f4f4; }
+
+.ichat-user-icon {
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  color: #fff;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 50px; }
+
+.ichat-user-details {
+  margin-left: 15px; }
+
+.ichat-user-name {
+  margin: 0px;
+  font-family: "Rubik", sans-serif;
+  font-size: 14px;
+  font-weight: 400; }
+
+.ichat-datetime {
+  margin: 0px;
+  font-family: "Rubik", sans-serif;
+  font-size: 10px;
+  color: #666666; }
+
+.ichat-wrapper {
+  background-color: #fff;
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0; }
+  .ichat-wrapper-show {
+    display: block; }
+
+.ichat-online::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  margin-right: 4px;
+  background-color: #63dc3f;
+  vertical-align: middle; }
+
+.ichat-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 15px;
+  margin: 0;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  color: #3D4246;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0; }
+  .ichat-title-action {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #3D4246; }
+    .ichat-title-action:hover, .ichat-title-action:focus {
+      color: #2C94FB; }
+
+.ichat-group {
+  display: inline-block;
+  width: 100%;
+  height: 248px;
+  margin-top: 40px;
+  overflow-y: scroll; }
+
+.ichat-item {
+  border-top-right-radius: 18px;
+  border-top-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  background-color: #E0E2E5;
+  margin: 5px 15px;
+  float: left;
+  font-family: "Rubik", sans-serif;
+  color: #2C343F;
+  font-weight: 400;
+  font-size: 12px;
+  width: auto;
+  max-width: 75%;
+  padding: 5px 15px;
+  clear: both; }
+  .ichat-item .ichat-message {
+    margin: 10px 0px; }
+  .ichat-item .ichat-datetime {
+    margin: 5px 0px;
+    text-align: left; }
+  .ichat-item-own {
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 0px;
+    background: #9145fb;
+    background: -moz-linear-gradient(left, #9145fb 0%, #2C94FB 100%);
+    background: -webkit-linear-gradient(left, #9145fb 0%, #2C94FB 100%);
+    background: linear-gradient(to right, #9145fb 0%, #2C94FB 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$startColor', endColorstr='$endColor',GradientType=1 );
+    color: #fff;
+    float: right; }
+    .ichat-item-own .ichat-datetime {
+      color: #eee;
+      text-align: right; }
+
+.ichat-form {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  position: relative; }
+
+.ichat-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+  padding: 6px;
+  padding-right: 50px;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif; }
+  .ichat-input:hover, .ichat-input:focus {
+    border-color: #2C94FB;
+    outline: none; }
+
+.ichat-btn {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  height: 35px;
+  width: 35px;
+  border-radius: 4px;
+  background-color: #2C94FB;
+  color: #fff;
+  border: 1px solid #057bef; }
+  .ichat-btn:hover, .ichat-btn:focus {
+    background-color: #1387fb; }
