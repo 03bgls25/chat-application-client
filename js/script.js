@@ -1,5 +1,5 @@
 const config = {
-    socket : io('http://localhost:3000'),
+    socket : io('https://isolution-chat-application.herokuapp.com'),
     sender: prompt('What is your name?'),
     receiver: null,
     roomUsers: [],
