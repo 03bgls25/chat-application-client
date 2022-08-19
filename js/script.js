@@ -1,14 +1,16 @@
 const config = {
-    socket : io('https://isolution-chat-application.herokuapp.com'),
+    socket : io('https://isolution-chat-application.herokuapp.com/'),
     sender: prompt('What is your name?'),
     receiver: null,
     roomUsers: [],
     room: null,
     onlineUsers: document.getElementById('onlineUsers'),
     roomWrapper: document.getElementById('roomWrapper'),
-    // msgWrapperClose: document.getElementById('msgWrapperClose'),
+    msgWrapperClose: null,
+    closedMsgWrapper: null,
     selectedUser: null,
     activeRoom: null,
+    openRoom: [],
     frmChat: null
 };
 const action = {
@@ -29,7 +31,7 @@ const action = {
         config.roomWrapper.innerHTML += `<div class="ichat-wrapper ichat-wrapper-show" id="${ data.room }">
                                 <div class="ichat-title ichat-online">
                                     ${data.user}
-                                    <a href="javascript:void(0)" class="ichat-title-action" id="msgWrapperClose">
+                                    <a href="javascript:void(0)" class="ichat-title-action msgWrapperClose" data-room="${ data.room }">
                                         <i class="mdi mdi-close"></i>
                                     </a>
                                 </div>
@@ -42,12 +44,14 @@ const action = {
                                 </div>
                             </div>`;
         action.sendMessage();
+        action.closeMsgWrapper();
     },
     setSelectUser: function(){
         config.selectedUser = document.querySelectorAll('.selectUser');
         config.selectedUser.forEach(function(el){
-            el.addEventListener('click', (event) => {
-                config.receiver = event.target.getAttribute('data-username');
+            el.addEventListener('click', () => {
+                debugger;
+                config.receiver = el.getAttribute('data-username');
                 config.roomUsers = [];
                 config.roomUsers.push(config.receiver);
                 config.roomUsers.push(config.sender);
@@ -58,12 +62,25 @@ const action = {
                     receiver: config.receiver 
                 };
                 config.socket.emit('create-room', data);
-                action.openChatWindow({ room: config.room, user: config.receiver });
+                if(config.openRoom.includes(config.room)){
+                    document.getElementById(config.room).classList.add("ichat-wrapper-show");
+                }else{
+                    config.openRoom.push(config.room);
+                    action.openChatWindow({ room: config.room, user: config.receiver });
+                }
             })
         })
     },
     closeMsgWrapper: function(){
-        config.msgWrapper.classList.remove("ichat-wrapper-show");
+        config.msgWrapperClose = document.querySelectorAll('.msgWrapperClose');
+        config.msgWrapperClose.forEach(el => {
+            el.addEventListener('click', () => {
+                config.closedMsgWrapper = el.getAttribute('data-room');
+                console.log(config.closedMsgWrapper);
+                document.getElementById(config.closedMsgWrapper).classList.remove("ichat-wrapper-show");
+            })
+        })
+            
     },
     sendMessage: function(){
         config.frmChat = document.querySelectorAll('.frmChat');
@@ -134,7 +151,12 @@ config.socket.on("invite", room => {
 config.socket.on("message", function (data) {
     var el = document.getElementById(data.room);
     if(el == null){
-        action.openChatWindow({ room:data.room, user: data.user });
+        if(config.openRoom.includes(data.room)){
+            document.getElementById(data.room).classList.add("ichat-wrapper-show");
+        }else{
+            config.openRoom.push(config.room);
+            action.openChatWindow({ room: data.room, user: data.user });
+        }
     }
     action.setOutputMesage(data);
 });
