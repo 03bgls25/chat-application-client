@@ -21,10 +21,7 @@
             link.href = 'https://03bgls25.github.io/chat-application-client/css/style.css';
             head.appendChild(link);
 
-            var script = document.createElement("script");
-            script.setAttribute("type","text/javascript");
-            script.setAttribute("src", "https://03bgls25.github.io/chat-application-client/js/socket.io.js");
-            head.appendChild(script);
+            
 
             let panel = document.createElement("div");
             panel.classList.add("ichat-panel");
@@ -61,47 +58,63 @@
             panel.appendChild(panelBody);
         
             document.getElementById('isolutionChat').appendChild(panel);
-
-            config.socket = io('https://isolution-chat-application.herokuapp.com/');
-            if(config.sender != null){
-                if(config.sender.length != 0){
-                    config.socket.emit("user-connected", config.sender);
+            action.loadSocketScript(function(){
+                config.socket = io('https://isolution-chat-application.herokuapp.com/');
+                if(config.sender != null){
+                    if(config.sender.length != 0){
+                        config.socket.emit("user-connected", config.sender);
+                    }else{
+                        location.reload()
+                    }
                 }else{
                     location.reload()
                 }
-            }else{
-                location.reload()
-            }
-            config.socket.on("user-connected", users => {
-                action.setOnlineUsersDom(users.filter(function(obj){
-                    return obj.name !== config.sender
-                }));
-            })
-            config.socket.on("user-disconnected", users => {
-                action.setOnlineUsersDom(users.filter(function(obj){
-                    return obj.name !== config.sender
-                }));
-            })
-            config.socket.on("invite", room => {
-                config.socket.emit("join-room", room)
-            })
-    
-            //CLOSE MSG DIALOG
-            // config.msgWrapperClose.addEventListener('click', (event) => {
-            //     action.closeMsgWrapper();
-            // });
-            config.socket.on("message", function (data) {
-                var el = document.getElementById(data.room);
-                if(el == null){
-                    if(config.openRoom.includes(data.room)){
-                        document.getElementById(data.room).classList.add("ichat-wrapper-show");
-                    }else{
-                        config.openRoom.push(config.room);
-                        action.openChatWindow({ room: data.room, user: data.user });
+                config.socket.on("user-connected", users => {
+                    action.setOnlineUsersDom(users.filter(function(obj){
+                        return obj.name !== config.sender
+                    }));
+                })
+                config.socket.on("user-disconnected", users => {
+                    action.setOnlineUsersDom(users.filter(function(obj){
+                        return obj.name !== config.sender
+                    }));
+                })
+                config.socket.on("invite", room => {
+                    config.socket.emit("join-room", room)
+                })
+        
+                //CLOSE MSG DIALOG
+                // config.msgWrapperClose.addEventListener('click', (event) => {
+                //     action.closeMsgWrapper();
+                // });
+                config.socket.on("message", function (data) {
+                    var el = document.getElementById(data.room);
+                    if(el == null){
+                        if(config.openRoom.includes(data.room)){
+                            document.getElementById(data.room).classList.add("ichat-wrapper-show");
+                        }else{
+                            config.openRoom.push(config.room);
+                            action.openChatWindow({ room: data.room, user: data.user });
+                        }
                     }
-                }
-                action.setOutputMesage(data);
+                    action.setOutputMesage(data);
+                });
             });
+        },
+        loadSocketScript: function(callback){
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement("script");
+            script.setAttribute("type","text/javascript");
+            script.setAttribute("src", "https://03bgls25.github.io/chat-application-client/js/socket.io.js");
+            head.appendChild(script);
+            if(script.readyState === "loaded" || script.readyState === "complete" ){
+                script.onreadystatechange = null;
+                callback();
+            }else{
+                script.onload = function(){
+                    callback();
+                }
+            }
         },
         setOnlineUsersDom: function(users){
             document.getElementById('onlineUsers').innerHTML = "";
