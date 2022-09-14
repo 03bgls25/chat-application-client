@@ -59,7 +59,8 @@
         
             document.getElementById('isolutionChat').appendChild(panel);
             action.loadSocketScript(function(){
-                config.socket = io('https://isolution-chat-application.herokuapp.com/');
+                // config.socket = io('https://isolution-chat-application.herokuapp.com/');
+                config.socket = io("http://localhost:3000");
                 if(config.sender != null){
                     if(config.sender.length != 0){
                         config.socket.emit("user-connected", config.sender);
@@ -157,7 +158,7 @@
                     config.roomUsers = [];
                     config.roomUsers.push(config.receiver);
                     config.roomUsers.push(config.sender);
-                    config.room = btoa(JSON.stringify(config.roomUsers));
+                    config.room = btoa(JSON.stringify(config.roomUsers.sort()));
                     let data = { 
                         room: config.room, 
                         sender: config.sender, 
